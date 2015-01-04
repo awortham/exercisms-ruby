@@ -1,0 +1,10 @@
+guard :minitest do
+
+   watch(%r{^test/(.*)\/?(.*)_test\.rb$})
+   watch(%r{^(.*)\.rb$}) do |fragments|
+   puts "Got #{fragments}\n"
+   "test/#{fragments[1]}_test.rb"
+ end
+  # watch(%r{^(.*/)?([^/]+)\.rb$})     { |m| "test/#{m[1]}test_#{m[2]}.rb" }
+  # # watch(%r{^test/test_helper\.rb$})      { 'test' }
+end
