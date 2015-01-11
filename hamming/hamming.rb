@@ -1,23 +1,34 @@
 class Hamming
   def self.compute(string1, string2)
-    join_strands = [string1, string2]
-    shorter = join_strands.min do |string1, string2|
-      string1.length <=> string2.length
-    end
+    usable_length = shorter(string1, string2).size
 
-    usable_length = shorter.size
+    format_string1 = format_string(string1, usable_length)
+    format_string2 = format_string(string2, usable_length)
 
-    format_string1 = string1.chars.take(usable_length)
-    format_string2 = string2.chars.take(usable_length)
+    zipped = combo(format_string1, format_string2)
 
-    return 0 if format_string1 == format_string2
-    combo = format_string1.zip(format_string2)
+    final_count(zipped)
+  end
 
-    no_duplicate = combo.map do |portion|
-      portion.uniq
-    end
+  def self.shorter(string1, string2)
+    join = [string1, string2]
+    join.min { |string1, string2| string1.length <=> string2.length }
+  end
 
-    no_duplicate.count do |word|
+  def self.format_string(string, length)
+    string.chars.take(length)
+  end
+
+  def self.combo(str1, str2)
+    str1.zip(str2)
+  end
+
+  def self.no_duplicate(zipped)
+    zipped.map { |portion| portion.uniq}
+  end
+
+  def self.final_count(zipped)
+    no_duplicate(zipped).count do |word|
       word.length == 2
     end
   end
