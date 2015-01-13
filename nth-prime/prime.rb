@@ -1,10 +1,12 @@
 require 'prime'
 
 class Prime
-  def self.nth(spot)
-    Prime.each_with_index do |num, index|
-      raise ArgumentError if spot == 0
-       return num if index == spot - 1
-    end
+  def self.nth(num)
+    raise ArgumentError if num == 0
+    primes(num).last
+  end
+
+  def primes(num)
+    Prime.first num
   end
 end
