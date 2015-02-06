@@ -1,6 +1,12 @@
 class Year
   def self.leap?(year)
-    by_4?(year) && (!by_100?(year) unless by_400?(year))
+    if by_4?(year) && !by_100?(year)
+      true
+    elsif by_100?(year) && by_400?(year)
+      true
+    else
+      false
+    end
   end
 
   def self.by_4?(year)
